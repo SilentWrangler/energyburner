@@ -5,7 +5,7 @@ import webbrowser
 import curses
 
 def main(window):
-    
+
     NAME = platform.node()
     REQUEST_AUTH_URL='https://the-tale.org/accounts/third-party/tokens/api/request-authorisation'
     headers = {'referer':'https://the-tale.org/'}
@@ -34,22 +34,22 @@ def main(window):
         window.refresh()
         window.getch()
 
-        
+
     payload = {'api_version':'1.0','api_client':'SWBURNER-0.1'}
     resp = client.get('https://the-tale.org/accounts/third-party/tokens/api/authorisation-state',params=payload)
     data = resp.json()
-    
+
     #print(data)
     if data['data']['account_id']:
         info = client.get('https://the-tale.org/api/info',params=payload).json()
-        
+
         try:
             helpcost = info['data']['abilities_cost']['help']
         except KeyError:
             window.addstr(str(info))
             window.getch()
             return
-        
+
         window.nodelay(True)
         curses.noecho()
         while True:
@@ -73,6 +73,7 @@ def main(window):
                 if energy<helpcost:
                     window.nodelay(False)
                     window.addstr("\nЭнергия кончилась! ")
+                    resp = client.post('https://the-tale.org/accounts/auth/api/logout',params=payload1,data=payload2,headers=headers)
                     window.refresh()
                     window.getch()
                     break
@@ -80,7 +81,7 @@ def main(window):
                 window.addstr("\nПрервано")
                 resp = client.post('https://the-tale.org/accounts/auth/api/logout',params=payload1,data=payload2,headers=headers)
                 break
-            
+
     else:
         window.nodelay(False)
         window.addstr("Разрешение ещё не выдано,  перезапустите и выдайте разрешение")
