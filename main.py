@@ -28,8 +28,12 @@ def main(window):
         d = resp.json()
         #print(d)
         window.addstr("Перейдите на страницу авторизации приложения\n")
-        window.addstr('https://the-tale.org'+d['data']['authorisation_page'])
-        webbrowser.open('https://the-tale.org'+d['data']['authorisation_page'])
+        url = 'https://the-tale.org'+d['data']['authorisation_page']
+        window.addstr(url)
+        if platform=='android':
+            import android
+            android.Android().startActivity('android.intent.action.VIEW', url)
+        webbrowser.open(url)
         window.addstr('\n\nКогда выдадите разрешение приложению, нажмите Enter')
         window.refresh()
         window.getch()
