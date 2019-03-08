@@ -1,0 +1,5 @@
+requests
+platform
+time
+webbrowser
+curses
