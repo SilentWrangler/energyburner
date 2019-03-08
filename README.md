@@ -5,10 +5,9 @@
 
 ## Запуск для чайников
 
-1. Установить [py][последний Python]
+1. Установить [последний Python]( https://python.org )
 2. В папке запустить консоль
 3. `pip install -r requirements.txt` (только перед первым запуском)
 4. `python main.py`
- [py]: https://python.org
- 
+
  
