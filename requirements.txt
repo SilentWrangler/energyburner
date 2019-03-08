@@ -1,6 +1,3 @@
 requests
-platform
-time
-webbrowser
 curses; platform_system != "Windows"
 windows-curses; platform_system == "Windows"
